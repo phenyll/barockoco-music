@@ -1,0 +1,53 @@
+{
+  "name": "barockoco-music",
+  "productName": "Barockoco Music",
+  "version": "1.0.0",
+  "description": "plays Barockocos radio stations and displays commercial advertisements - both configurable",
+  "license": "MIT",
+  "repository": "phenyll/barockoco-music",
+  "author": {
+    "name": "Oliver Möller",
+    "email": "om@batix.com",
+    "url": "github.com/phenyll"
+  },
+  "scripts": {
+    "test": "xo",
+    "start": "electron . --icon \"AppIcon.icns\"",
+    "build": "electron-packager . --out=dist --asar --overwrite --all --icon \"AppIcon.icns\"",
+    "buildMacOS": "electron-packager . --out=dist --asar --overwrite --darwin --icon \"AppIcon.icns\"",
+    "rebuild": "electron-rebuild -f -w lame"
+  },
+  "files": [
+    "index.js",
+    "index.html",
+    "index.css"
+  ],
+  "keywords": [
+    "electron-app",
+    "electron"
+  ],
+  "dependencies": {
+    "app-root-dir": "^1.0.2",
+    "electron-debug": "^1.0.0",
+    "icy": "^2.1.0",
+    "jquery": "^3.3.1",
+    "lame": "^1.2.4",
+    "request": "^2.83.0",
+    "speaker": "^0.4.0",
+    "superagent": "^3.8.2"
+  },
+  "devDependencies": {
+    "devtron": "^1.1.0",
+    "electron": "^1.3.3",
+    "electron-packager": "^8.0.0",
+    "electron-rebuild": "^1.7.3",
+    "xo": "^0.16.0"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "browser"
+    ]
+  }
+}

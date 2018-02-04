@@ -1,0 +1,68 @@
+html,
+body {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+header {
+	position: absolute;
+	width: 500px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+	margin-top: -125px;
+	margin-left: -250px;
+	text-align: center;
+}
+
+header h1 {
+	font-size: 60px;
+	font-weight: 100;
+	margin: 0;
+	padding: 0;
+}
+
+#music-sidebar {
+	position: fixed;
+	height: 100%;
+	width: 200px;
+	right: 0px;
+	top: 0px;
+	background: rgba(0,0,0,0.7);
+	text-align: center;
+}
+
+.channel {
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 80%;
+	display: inline-block;
+	margin-top: 20px;
+	background-color: darkgoldenrod;
+}
+
+.channel .play-button, .channel .stop-button {
+	cursor: pointer;
+}
+
+.channel .play-button {
+	color: green;
+}
+
+.channel .stop-button {
+	color: red;
+}
+
+.large-icon {
+	font-size: 170px;
+	line-height: 120px;
+	margin: 0;
+	color: #FFBF00;
+}
