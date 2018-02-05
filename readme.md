@@ -2,8 +2,33 @@
 
 > Radiostations and advertisement
 
-App expects a 
+App expects api to serve:
 
+### `/api/v2/?random=${connectionCheckToken}`
+response should be content of `connectionCheckToken`
+ 
+### `/api/v2/radiochannels`
+
+```
+[
+	{
+		"title": "My Channel",
+		"url": "https://my.radiostati.on/path",
+		"color": "#FF0000"
+	}
+]
+```
+
+### `/api/v2/radiocommercials`
+
+```
+[
+	{
+		"title": "my ad",
+		"picture": "https://my.radiostati.on/images/pic_1920x1080.jpg"
+	}
+]
+```
 
 ## Dev
 
