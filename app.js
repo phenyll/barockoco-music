@@ -162,6 +162,7 @@ function init(){
 					}
 				});
 				setTimeout(()=>{
+					$('.play-button').first().click();
 					getCommercials((res)=>{
 						$('header').hide();
 						commercials = JSON.parse(res);
