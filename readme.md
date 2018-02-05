@@ -30,6 +30,9 @@ response should be content of `connectionCheckToken`
 ]
 ```
 
+### Todos
+- Enable Auto-Update after aquired paid Apple Developer Cert
+
 ## Dev
 
 ```

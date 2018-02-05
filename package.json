@@ -1,7 +1,7 @@
 {
   "name": "barockoco-music",
   "productName": "Barockoco Music",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "plays Barockocos radio stations and displays commercial advertisements - both configurable",
   "license": "MIT",
   "repository": "phenyll/barockoco-music",
@@ -13,8 +13,8 @@
   "scripts": {
     "test": "xo",
     "start": "electron . --icon \"AppIcon.icns\"",
-    "build": "electron-packager . --out=dist --asar --overwrite --all --icon \"AppIcon.icns\"",
-    "buildMacOS": "electron-packager . --out=dist --asar --overwrite --darwin --icon \"AppIcon.icns\"",
+    "build": "electron-packager . --app-version=$npm_package_version --out=dist --asar --overwrite --all --icon \"AppIcon.icns\"",
+    "buildMacOS": "electron-packager . --app-version=$npm_package_version --out=dist --asar --overwrite --darwin --icon \"AppIcon.icns\"",
     "rebuild": "electron-rebuild -f -w lame"
   },
   "files": [
@@ -29,6 +29,7 @@
   "dependencies": {
     "app-root-dir": "^1.0.2",
     "electron-debug": "^1.0.0",
+    "electron-is-dev": "^0.3.0",
     "icy": "^2.1.0",
     "jquery": "^3.3.1",
     "lame": "^1.2.4",
