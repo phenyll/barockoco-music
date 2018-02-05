@@ -34,6 +34,7 @@ header h1 {
 	top: 0px;
 	background: rgba(0,0,0,0.7);
 	text-align: center;
+	overflow: scroll;
 }
 
 .channel {
@@ -42,27 +43,20 @@ header h1 {
 	font-weight: bold;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	width: 80%;
+	width: 160px;
 	display: inline-block;
 	margin-top: 20px;
-	background-color: darkgoldenrod;
+	background-color: #FFBF00;
+	border-radius: 100%;
+	height: 100px;
+	padding-top: 60px;
 }
 
 .channel .play-button, .channel .stop-button {
-	cursor: pointer;
-}
-
-.channel .play-button {
-	color: green;
-}
-
-.channel .stop-button {
-	color: red;
+	color: white;
+	font-size: 26px;
 }
 
 .large-icon {
-	font-size: 170px;
-	line-height: 120px;
-	margin: 0;
 	color: #FFBF00;
 }

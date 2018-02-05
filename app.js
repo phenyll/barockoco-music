@@ -165,11 +165,21 @@ function init(){
 					getCommercials((res)=>{
 						$('header').hide();
 						commercials = JSON.parse(res);
-						$('section').append($(`<img id="switch-picture" src="${commercials[0].picture}" width="${window.innerWidth}px" height="${window.innerHeight}px">`));
+						let ad = commercials.pop();
+						$('section').append($(`<img id="switch-picture" src="${ad.picture}" width="${window.innerWidth}px" height="${window.innerHeight}px">`));
 
 						setInterval(()=>{
-							let neu = commercials[Math.floor(Math.random() * commercials.length)];
-							$('#switch-picture').attr('src', neu.picture);
+							let neu = commercials.pop();
+
+							if(neu){
+								$('#switch-picture').attr('src', neu.picture);
+							} else {
+								getCommercials((res)=>{
+									commercials = JSON.parse(res);
+									neu = commercials.pop();
+									$('#switch-picture').attr('src', neu.picture);
+								});
+							}
 						}, 1000*60*3)
 					});
 				}, 3000);
