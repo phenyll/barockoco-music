@@ -2,6 +2,10 @@
 
 > Radiostations and advertisement
 
+![Sample](./sample-image.png)
+
+![Showcase](./Kapture.mp4)
+
 App expects api to serve:
 
 ### `/api/v2/?random=${connectionCheckToken}`
