@@ -34,7 +34,8 @@ if (!isDev && paidCertIsAvailable) {
 	});
 	autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 		console.log("Update wurde heruntergeladen.");
-		const dialogOpts = {
+		// Updates beim nächsten Neustart automatisch installieren, den Nutzer nicht mit Meldungen nerven!
+		/*const dialogOpts = {
 			type: 'info',
 			buttons: ['Installieren', 'Später'],
 			title: 'Update',
@@ -44,7 +45,7 @@ if (!isDev && paidCertIsAvailable) {
 
 		dialog.showMessageBox(dialogOpts, (response) => {
 			if (response === 0) autoUpdater.quitAndInstall()
-		});
+		});*/
 	});
 
 	autoUpdater.checkForUpdates();

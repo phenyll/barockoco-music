@@ -1,7 +1,7 @@
 {
   "name": "barockoco-music",
   "productName": "Barockoco Music",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "plays Barockocos radio stations and displays commercial advertisements - both configurable",
   "license": "MIT",
   "repository": "phenyll/barockoco-music",
