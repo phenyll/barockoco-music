@@ -10,6 +10,18 @@ App expects api to serve:
 
 ### `/api/v2/?random=${connectionCheckToken}`
 response should be content of `connectionCheckToken`
+
+## Updates
+For Updates you need a valid Apple Developer ID. I found these resources helpful:
+- https://pracucci.com/atom-electron-signing-mac-app.html
+- https://help.apple.com/xcode/mac/current/#/dev3a05256b8
+- https://github.com/iffy/electron-updater-example
+- https://developer.apple.com/account/mac/certificate/distribution 
+
+long story short, get a cert: "macOS Production Developer ID", import to keychain and after build of .app execute `codesign --deep --force --verbose --sign "Your Company Name / Cert Name (MV*******)" "dist/App Name-os-stuff/App Name.app"`.
+I attached it with `&&` to my npm-build-script.
+
+When I tried to serve the Updater I had problems hosting the .app-"File" which is recognized as a folder on all other OSs other than macOS. I just zipped the .app and served it, which works like a charm.
  
 ### `/api/v2/radiochannels`
 
