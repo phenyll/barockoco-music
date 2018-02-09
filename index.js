@@ -9,15 +9,15 @@ require('electron-debug')();
 // prevent window being garbage collected
 let mainWindow;
 
-const isDev = require('electron-is-dev'), paidCertIsAvailable = false;
+const isDev = require('electron-is-dev'), paidCertIsAvailable = true;
 
 if (!isDev && paidCertIsAvailable) {
 	//auto updater here:
 	const appVersion = require('./package.json').version;
 	const config = require('./config.json');
-	let updateFeed = `${config.apiHost}/api/v2/barockoco-music-updates/latest`;
+	let updateFeed = `${config.apiHost}/api/open/v1/barockoco-music-updates/latest`;
 
-	autoUpdater.setFeedURL(updateFeed + '?v=' + appVersion, {"authorization": `Basic ${config.authToken}`});
+	autoUpdater.setFeedURL(updateFeed + '?v=' + appVersion);
 
 
 	autoUpdater.on('error', (err)=>{
