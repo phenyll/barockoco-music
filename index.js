@@ -79,6 +79,7 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
 	if (!mainWindow) {
 		mainWindow = createMainWindow();
+		mainWindow.setFullScreen(true);
 	}
 });
 
