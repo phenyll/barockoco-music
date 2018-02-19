@@ -15,6 +15,7 @@
     "start": "electron . --icon \"AppIcon.icns\"",
     "build": "electron-packager . --app-version=$npm_package_version --out=dist --asar --overwrite --all --icon \"AppIcon.icns\"",
     "buildMacOS": "electron-packager . --app-version=$npm_package_version --out=dist --asar --overwrite --darwin --icon \"AppIcon.icns\"",
+    "buildMacOsSigned": "electron-packager . --app-version=$npm_package_version --out=dist --asar --overwrite --darwin --icon \"AppIcon.icns\" && codesign --deep --force --verbose --sign \"Batix Software GmbH (MV7W88V29T)\" \"dist/Barockoco Music-darwin-x64/Barockoco Music.app\"",
     "rebuild": "electron-rebuild -f -w lame"
   },
   "files": [

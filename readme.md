@@ -51,8 +51,16 @@ When I tried to serve the Updater I had problems hosting the .app-"File" which i
 
 ## Dev
 
+Boilerplate was created through:
+ 
 ```
-$ npm install
+sudo npm i -g yo generator-electron-app
+```
+
+and then:
+
+```
+yo electron-app
 ```
 
 ### Run
