@@ -1,21 +1,21 @@
 const SuperAgent = require('superagent');
+
 const agent = SuperAgent.agent();
 const $ = require('jquery');
 
-let lame = require('lame');
-let Speaker = require('speaker');
+const lame = require('lame');
+const Speaker = require('speaker');
 
-//const authToken = "yourBase64encoded username:password"; //included via index.html
-//const apiHost = "https://api.yourserver.tld"; //included via index.html
+// Const authToken = "yourBase64encoded username:password"; //included via index.html
+// const apiHost = "https://api.yourserver.tld"; //included via index.html
 
 let commercials;
 
 class Player {
-
 	constructor(streamURL) {
 		this.streamURL = streamURL;
 		this.playing = false;
-		//this.lastVolume = 1;
+		// This.lastVolume = 1;
 	}
 
 	isPlaying() {
@@ -24,16 +24,16 @@ class Player {
 
 	play() {
 		if (!this.playing) {
-			let icy = require('icy');
+			const icy = require('icy');
 
 			this.playing = true;
 
-			let playerRes = (object) => {
-				let speaker = new Speaker();
-				let decoder = new lame.Decoder();
-				return (res) => {
-					res.on('data', (chunk) => {
-						if(!object.playing) {
+			const playerRes = object => {
+				const speaker = new Speaker();
+				const decoder = new lame.Decoder();
+				return res => {
+					res.on('data', chunk => {
+						if (!object.playing) {
 							res.socket.pause();
 							speaker._unpipe(decoder);
 							speaker.close(true);
@@ -41,7 +41,7 @@ class Player {
 					});
 					res.pipe(decoder)
 						.pipe(speaker);
-				}
+				};
 			};
 
 			icy.get(this.streamURL, playerRes(this));
@@ -54,7 +54,7 @@ class Player {
 		}
 	}
 
-	/*setVolume(value) {
+	/* SetVolume(value) {
 		this.lastVolume = value;
 		if(this.volume) {
 			this.volume.setVolume(value);
@@ -70,76 +70,80 @@ class Player {
 		if(this.volume) {
 			this.volume.setVolume(0);
 		}
-	}*/
-
+	} */
 }
 
-function serverConnectionTest(callback){
-	let connectionCheckToken = randString(18);
+function serverConnectionTest(callback) {
+	const connectionCheckToken = randString(18);
 	agent
 		.get(`${config.apiHost}/api/v2/?random=${connectionCheckToken}`)
 		.set('authorization', `Basic ${config.authToken}`)
-		.end((err, res)=>{
-			if(!err && res.text === connectionCheckToken && typeof callback === "function"){
+		.end((error, res) => {
+			if (!error && res.text === connectionCheckToken && typeof callback === 'function') {
 				callback(res);
-			} else
-				alert("Fehler bei Verbindung mit Barockoco Webserver, bitte versuchen Sie die Anwendung mit Rechtsklick auf das Icon zu beenden und versuchen Sie es anschließend erneut\n\n BItte prüfen Sie auch, ob die Internetverbindung des Geräts funktioniert.");
+			} else {
+				alert('Fehler bei Verbindung mit Barockoco Webserver, bitte versuchen Sie die Anwendung mit Rechtsklick auf das Icon zu beenden und versuchen Sie es anschließend erneut\n\n BItte prüfen Sie auch, ob die Internetverbindung des Geräts funktioniert.');
+			}
 		});
 }
 
-function getRadioChannels(callback){
+function getRadioChannels(callback) {
 	agent
 		.get(`${config.apiHost}/api/v2/radiochannels`)
-		.end((err, res)=>{
-			if(err){
-				alert("Es gab einen Fehler beim Versuch die Radiosender abzurufen, Bitte versuchen Sie die Anwendung neuzustarten.");
+		.end((error, res) => {
+			if (error) {
+				alert('Es gab einen Fehler beim Versuch die Radiosender abzurufen, Bitte versuchen Sie die Anwendung neuzustarten.');
 				return false;
 			}
+
 			try {
-				if(typeof callback === "function")
+				if (typeof callback === 'function') {
 					callback(res.text);
-			} catch (err) {
-				alert("Es gab einen Fehler beim Versuch die Radiosender auszuwerten, Bitte versuchen Sie die Anwendung neuzustarten.\n"+err);
+				}
+			} catch (error) {
+				alert('Es gab einen Fehler beim Versuch die Radiosender auszuwerten, Bitte versuchen Sie die Anwendung neuzustarten.\n' + error);
 				return false;
 			}
 		});
 }
 
-function getCommercials(callback){
+function getCommercials(callback) {
 	agent
 		.get(`${config.apiHost}/api/v2/radiocommercials`)
-		.end((err, res)=>{
-			callback(res.text)
+		.end((error, res) => {
+			callback(res.text);
 		});
 }
 
-function randString(length){
-	let text = "";
-	let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	for (let i = 0; i < length; i++)
+function randString(length) {
+	let text = '';
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	for (let i = 0; i < length; i++) {
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+
 	return text;
 }
 
-function init(){
-	serverConnectionTest(()=>{
-		getRadioChannels((channels)=>{
-			let channelsParsed = JSON.parse(channels);
-			//console.dir(channelsParsed);
-			if(channelsParsed.every((next)=>{
-				//console.dir(next);
-				let dom = $(`
+function init() {
+	serverConnectionTest(() => {
+		getRadioChannels(channels => {
+			const channelsParsed = JSON.parse(channels);
+			// Console.dir(channelsParsed);
+			if (channelsParsed.every(next => {
+				// Console.dir(next);
+				const dom = $(`
 <div class="channel" style="background-color: ${next.color};">
 	<div class="title">${next.title}</div>
 	<div class="play-button" data-url="${next.url}">&#9654;</div>
 	<div class="stop-button" style="display:none;">&#9726;</div>
 </div>`);
 				dom.appendTo('#music-sidebar');
-				return true
-			})){
-				$('.play-button').on('click', (event)=>{
-					let me = $(event.target);
-					let url = me.data('url');
+				return true;
+			})) {
+				$('.play-button').on('click', event => {
+					const me = $(event.target);
+					const url = me.data('url');
 
 					$('.stop-button').hide();
 					$('.play-button').show();
@@ -147,49 +151,50 @@ function init(){
 					me.hide();
 					me.siblings('.stop-button').show();
 
-					if(player.isPlaying()){
+					if (player.isPlaying()) {
 						player.stop();
 					}
+
 					player = new Player(url);
 					player.play();
 				});
-				$('.stop-button').on('click', ()=>{
+				$('.stop-button').on('click', () => {
 					$('.stop-button').hide();
 					$('.play-button').show();
 
-					if(player.isPlaying()){
+					if (player.isPlaying()) {
 						player.stop();
 					}
 				});
-				setTimeout(()=>{
+				setTimeout(() => {
 					$('.play-button').first().click();
-					getCommercials((res)=>{
+					getCommercials(res => {
 						$('header').hide();
 						commercials = JSON.parse(res);
-						let ad = commercials.pop();
+						const ad = commercials.pop();
 						$('section').append($(`<img id="switch-picture" src="${ad.picture}" width="${window.innerWidth}px" height="${window.innerHeight}px">`));
 
-						setInterval(()=>{
+						setInterval(() => {
 							let neu = commercials.pop();
 
-							if(neu){
+							if (neu) {
 								$('#switch-picture').attr('src', neu.picture);
 							} else {
-								getCommercials((res)=>{
+								getCommercials(res => {
 									commercials = JSON.parse(res);
 									neu = commercials.pop();
 									$('#switch-picture').attr('src', neu.picture);
 								});
 							}
-						}, 1000*60*3)
+						}, 1000 * 60 * 3);
 					});
 				}, 3000);
 			}
-			player = new Player("");
-			window.onunload = function () {
-				player.stop()
-			};
+
+			player = new Player('');
+			window.addEventListener('unload', () => {
+				player.stop();
+			});
 		});
 	});
-
 }

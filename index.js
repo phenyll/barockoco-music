@@ -3,39 +3,41 @@ const electron = require('electron');
 
 const {app, autoUpdater, dialog} = require('electron');
 
-// adds debug features like hotkeys for triggering dev tools and reload
+// Adds debug features like hotkeys for triggering dev tools and reload
 require('electron-debug')();
 
-// prevent window being garbage collected
+// Prevent window being garbage collected
 let mainWindow;
 
-const isDev = require('electron-is-dev'), paidCertIsAvailable = true;
+const isDev = require('electron-is-dev');
+
+const
+	paidCertIsAvailable = true;
 
 if (!isDev && paidCertIsAvailable) {
-	//auto updater here:
+	// Auto updater here:
 	const appVersion = require('./package.json').version;
 	const config = require('./config.json');
-	let updateFeed = `${config.apiHost}/api/open/v1/barockoco-music-updates/latest`;
+	const updateFeed = `${config.apiHost}/api/open/v1/barockoco-music-updates/latest`;
 
 	autoUpdater.setFeedURL(updateFeed + '?v=' + appVersion);
 
-
-	autoUpdater.on('error', (err)=>{
-		console.log("Es ist ein Fehler bei Auto-Update aufgetreten: ", err);
+	autoUpdater.on('error', error => {
+		console.log('Es ist ein Fehler bei Auto-Update aufgetreten:', error);
 	});
-	autoUpdater.on('checking-for-update', ()=>{
-		console.log("Prüfe auf Updates...");
+	autoUpdater.on('checking-for-update', () => {
+		console.log('Prüfe auf Updates...');
 	});
-	autoUpdater.on('update-available', ()=>{
-		console.log("Update verfügbar, starte Download...");
+	autoUpdater.on('update-available', () => {
+		console.log('Update verfügbar, starte Download...');
 	});
-	autoUpdater.on('update-not-available', ()=>{
-		console.log("Kein Update verfügbar.");
+	autoUpdater.on('update-not-available', () => {
+		console.log('Kein Update verfügbar.');
 	});
 	autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
-		console.log("Update wurde heruntergeladen.");
+		console.log('Update wurde heruntergeladen.');
 		// Updates beim nächsten Neustart automatisch installieren, den Nutzer nicht mit Meldungen nerven!
-		/*const dialogOpts = {
+		/* const dialogOpts = {
 			type: 'info',
 			buttons: ['Installieren', 'Später'],
 			title: 'Update',
@@ -45,7 +47,7 @@ if (!isDev && paidCertIsAvailable) {
 
 		dialog.showMessageBox(dialogOpts, (response) => {
 			if (response === 0) autoUpdater.quitAndInstall()
-		});*/
+		}); */
 	});
 
 	autoUpdater.checkForUpdates();
@@ -54,7 +56,7 @@ if (!isDev && paidCertIsAvailable) {
 // /end auto update
 
 function onClosed() {
-	// dereference the window
+	// Dereference the window
 	// for multiple windows store them in an array
 	mainWindow = null;
 }
@@ -62,7 +64,7 @@ function onClosed() {
 function createMainWindow() {
 	const win = new electron.BrowserWindow({
 		width: 1000,
-		height: 600
+		height: 600,
 	});
 
 	win.loadURL(`file://${__dirname}/index.html`);

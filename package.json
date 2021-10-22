@@ -16,7 +16,8 @@
     "build": "electron-packager . --app-version=$npm_package_version --out=dist --asar --overwrite --all --icon \"AppIcon.icns\"",
     "buildMacOS": "electron-packager . --app-version=$npm_package_version --out=dist --asar --overwrite --darwin --icon \"AppIcon.icns\"",
     "buildMacOsSigned": "electron-packager . --app-version=$npm_package_version --out=dist --asar --overwrite --darwin --icon \"AppIcon.icns\" && codesign --deep --force --verbose --sign \"Batix Software GmbH (MV7W88V29T)\" \"dist/Barockoco Music-darwin-x64/Barockoco Music.app\"",
-    "rebuild": "electron-rebuild -f -w lame"
+    "rebuild": "electron-rebuild -f -w lame",
+    "lint": "./node_modules/.bin/xo --fix"
   },
   "files": [
     "index.js",
@@ -29,21 +30,21 @@
   ],
   "dependencies": {
     "app-root-dir": "^1.0.2",
-    "electron-debug": "^1.0.0",
-    "electron-is-dev": "^0.3.0",
+    "electron-debug": "^3.2.0",
+    "electron-is-dev": "^2.0.0",
     "icy": "^2.1.0",
-    "jquery": "^3.3.1",
-    "lame": "^1.2.4",
-    "request": "^2.83.0",
-    "speaker": "^0.4.0",
-    "superagent": "^3.8.2"
+    "jquery": "^3.6.0",
+    "lame": "github:suldashi/node-lame",
+    "request": "^2.88.2",
+    "speaker": "^0.5.3",
+    "superagent": "^6.1.0"
   },
   "devDependencies": {
-    "devtron": "^1.1.0",
-    "electron": "^1.3.3",
-    "electron-packager": "^8.0.0",
-    "electron-rebuild": "^1.7.3",
-    "xo": "^0.16.0"
+    "devtron": "^1.4.0",
+    "electron": "^15.3.0",
+    "electron-packager": "^15.4.0",
+    "electron-rebuild": "^3.2.3",
+    "xo": "^0.45.0"
   },
   "xo": {
     "esnext": true,
